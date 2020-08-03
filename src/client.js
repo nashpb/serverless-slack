@@ -128,7 +128,7 @@ class Client {
 
     // convert json except when passing in a url
     if (!endPoint.match(/^http/i)) message = qs.stringify(message);
-    return this.api.post(endPoint, message).then(this.getData);
+    return this.api.post(endPoint, message).then(this.getData).catch( e => console.log(e) );
   }
 
 
@@ -141,7 +141,7 @@ class Client {
   getData(response) {
     let data = response.data;
 
-    if (data.ok) {
+    if (data == 'ok' || data.ok) {
       delete data.ok;
       return Promise.resolve(data);
     } else {
